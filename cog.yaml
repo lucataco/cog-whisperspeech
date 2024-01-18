@@ -1,0 +1,12 @@
+# Configuration for Cog ⚙️
+# Reference: https://github.com/replicate/cog/blob/main/docs/yaml.md
+
+build:
+  gpu: true
+  python_version: "3.11"
+  python_packages:
+    - "torch==2.0.1"
+    - "WhisperSpeech==0.5.6"
+
+# predict.py defines how predictions are run on your model
+predict: "predict.py:Predictor"
