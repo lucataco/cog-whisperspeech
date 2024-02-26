@@ -1,15 +1,29 @@
 # Prediction interface for Cog ⚙️
 # https://github.com/replicate/cog/blob/main/docs/python.md
+import os
+
+WEIGHTS_FOLDER = "/src/models/"
+os.environ['HF_HOME'] = WEIGHTS_FOLDER 
+os.environ['HF_HUB_CACHE'] = WEIGHTS_FOLDER
+os.environ['TORCH_HOME'] = WEIGHTS_FOLDER
+os.environ['PYANNOTE_CACHE'] = WEIGHTS_FOLDER
 
 from cog import BasePredictor, Input, Path
 import torch
 from whisperspeech.pipeline import Pipeline
+from speechbrain.pretrained import EncoderClassifier
+
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
         """Load the model into memory to make running multiple predictions efficient"""
         self.pipe = Pipeline(s2a_ref='collabora/whisperspeech:s2a-q4-small-en+pl.model')
 
+        # source: https://github.com/collabora/WhisperSpeech/blob/a4f9c2de1a7e2e0b77f2acb08374de347414e2fa/whisperspeech/pipeline.py#L68-L72
+        self.pipe.encoder = EncoderClassifier.from_hparams("speechbrain/spkrec-ecapa-voxceleb",
+                                                          savedir=Path(WEIGHTS_FOLDER) / "speechbrain",
+                                                          run_opts={"device": "cuda"})
+ 
     def predict(
         self,
         prompt: str = Input(description="Text to synthesize", default="This is the first demo of Whisper Speech, a fully open source text-to-speech model trained by Collabora and Lion on the Juwels supercomputer."),
