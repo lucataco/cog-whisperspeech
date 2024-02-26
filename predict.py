@@ -1,6 +1,8 @@
 # Prediction interface for Cog ⚙️
 # https://github.com/replicate/cog/blob/main/docs/python.md
 import os
+import time
+import subprocess
 
 WEIGHTS_FOLDER = "/src/models/"
 os.environ['HF_HOME'] = WEIGHTS_FOLDER 
@@ -13,10 +15,28 @@ import torch
 from whisperspeech.pipeline import Pipeline
 from speechbrain.pretrained import EncoderClassifier
 
+MODELS_URL = "https://weights.replicate.delivery/default/whisper-speech/models.tar"
+MODELS_PATH = WEIGHTS_FOLDER
+
+def download_weights(url, dest, extract=True):
+    start = time.time()
+    print("downloading url: ", url)
+    print("downloading to: ", dest)
+    args = ["pget"]
+    if extract:
+        args.append("-x")
+    subprocess.check_call(args + [url, dest], close_fds=False)
+    print("downloading took: ", time.time() - start)
+
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
         """Load the model into memory to make running multiple predictions efficient"""
+        # download model weights to cache
+        # if we already have the model, this doesn't do anything
+        if not os.path.exists(Path(MODELS_PATH) / "speechbrain"):
+            download_weights(MODELS_URL, MODELS_PATH)
+
         self.pipe = Pipeline(s2a_ref='collabora/whisperspeech:s2a-q4-small-en+pl.model')
 
         # source: https://github.com/collabora/WhisperSpeech/blob/a4f9c2de1a7e2e0b77f2acb08374de347414e2fa/whisperspeech/pipeline.py#L68-L72
