@@ -4,7 +4,7 @@ This is an implementation of [WhisperSpeech](https://github.com/collabora/Whispe
 
 ## Development
 
-Follow the [model pushing guide](https://replicate.com/docs/guides/push-a-model) to push your own fork of SDXL to [Replicate](https://replicate.com).
+Follow the [model pushing guide](https://replicate.com/docs/guides/push-a-model) to push your own model to [Replicate](https://replicate.com).
 
 ## Basic Usage
 
