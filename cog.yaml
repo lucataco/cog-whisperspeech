@@ -8,5 +8,8 @@ build:
     - "torch==2.0.1"
     - "WhisperSpeech==0.5.6"
 
+  system_packages:
+    - "ffmpeg"
+
 # predict.py defines how predictions are run on your model
 predict: "predict.py:Predictor"
