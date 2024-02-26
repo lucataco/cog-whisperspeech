@@ -52,7 +52,7 @@ class Predictor(BasePredictor):
             choices=["en", "pl"]
         ),
         speaker: str = Input(
-            description="URL of an OGG audio file for zero-shot voice cloning. (ex: https://upload.wikimedia.org/wikipedia/commons/7/75/Winston_Churchill_-_Be_Ye_Men_of_Valour.ogg)",
+            description="URL of an audio file for zero-shot voice cloning. Supported audio formats are OGG, WAV and MP3. (example: https://upload.wikimedia.org/wikipedia/commons/7/75/Winston_Churchill_-_Be_Ye_Men_of_Valour.ogg)",
             default="",
         ),
     ) -> Path:
