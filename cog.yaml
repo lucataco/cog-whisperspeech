@@ -7,6 +7,14 @@ build:
   python_packages:
     - "torch==2.0.1"
     - "WhisperSpeech==0.5.6"
+    - "speechbrain==0.5.16"
+
+  system_packages:
+    - "ffmpeg"
+
+  run:
+    - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.5.6/pget_linux_x86_64" && chmod +x /usr/local/bin/pget
+
 
 # predict.py defines how predictions are run on your model
 predict: "predict.py:Predictor"
