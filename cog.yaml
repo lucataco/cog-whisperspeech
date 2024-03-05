@@ -7,6 +7,7 @@ build:
   python_packages:
     - "torch==2.0.1"
     - "WhisperSpeech==0.5.6"
+    - "speechbrain==0.5.16"
 
   system_packages:
     - "ffmpeg"
