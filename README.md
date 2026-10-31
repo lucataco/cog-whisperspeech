@@ -13,3 +13,9 @@ for prediction,
     cog predict -i prompt="This is the first demo of Whisper Speech, a fully open source text-to-speech model trained by Collabora and Lion on the Juwels supercomputer"
 
 [output](output.wav)
+
+## License
+
+The code in this repository is licensed under the [Apache License 2.0](LICENSE).
+
+The model weights are not covered by this license. [WhisperSpeech/WhisperSpeech](https://huggingface.co/WhisperSpeech/WhisperSpeech) is released under the [MIT](https://opensource.org/licenses/MIT) license.
